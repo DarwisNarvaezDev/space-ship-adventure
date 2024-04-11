@@ -1,116 +1,111 @@
-import { Badge, Box, CloseButton, Flex, FormControl, FormHelperText, FormLabel, HStack, Heading, Radio, RadioGroup, ScaleFade, Tag, Text, useDisclosure } from "@chakra-ui/react";
+import { Badge, Box, CloseButton, Flex, FormControl, FormHelperText, FormLabel, HStack, Heading, Radio, RadioGroup, ScaleFade, Stack, Tag, Text, useDisclosure } from "@chakra-ui/react";
 import MenuStyles from '../styles/menu/menu.module.css'
 import React, { useState } from "react";
 import { CenteredProps } from "../styles/chakra/Props.tsx";
 import { Messages } from "../messages/Messages.tsx";
 import MenuCommandForm from "./menu/MenuCommandForm.tsx";
+import StatusContainer from "./menu/StatusContainer.tsx";
+import HintBox from "./menu/HintBox.tsx";
+import { MenuFormFieldNames } from "../interfaces/MenuForm.tsx";
+import { MenuHintBoxContent } from "../interfaces/MenuHintBoxContent.tsx";
 
 function Menu() {
 
-    const [statusText, setStatusText] = useState<string>('Waiting for command.')
-    const { isOpen, onToggle } = useDisclosure()
+  const [statusText, setStatusText] = useState<string>(Messages.menu.waitingForCommand)
+  const { isOpen, onToggle } = useDisclosure()
+  const [ menuHintBoxContent, setMenuHintBoxContent ] = useState<MenuHintBoxContent>({
+    title: "Flight Command",
+    content: "This is blah blah"
+  })
 
-    const handleMouseOverStatusBadge = (evt: React.MouseEvent): void => {
-        if(!isOpen){
-            setStatusText(Messages.menu.clickToEnterCommand)
-        }else{
-            setStatusText(Messages.menu.clickToCloseForm)
-        }
+  const handleMouseOverStatusBadge = (evt: React.MouseEvent): void => {
+    if (!isOpen) {
+      setStatusText(Messages.menu.clickToEnterCommand)
+    } else {
+      setStatusText(Messages.menu.clickToCloseForm)
+    }
+  }
+
+  const handleMouseLeaveStatusBadge = (evt: React.MouseEvent): void => {
+    setStatusText(Messages.menu.waitingForCommand)
+  }
+
+  const handleClickStatusBadge = (evt: React.MouseEvent): void => {
+    if (isOpen) {
+      setStatusText(Messages.menu.waitingForCommand)
+    } else {
+      setStatusText(Messages.menu.clickToCloseForm)
+    }
+    onToggle()
+  }
+
+  const handleFormInputClick = (evt: React.MouseEvent): void => {
+    const clickedField = evt.target.name
+    
+    switch( clickedField ){
+      case MenuFormFieldNames.distance:
+        setMenuHintBoxContent({
+          title: "Distance",
+          content: "This is blah blah"
+        })
+        break;
+      case MenuFormFieldNames.rocketSpeed:
+        setMenuHintBoxContent({
+          title: "Rocket Speed",
+          content: "This is blah blah"
+        })
+        break;
+      case MenuFormFieldNames.flightTime:
+          setMenuHintBoxContent({
+            title: "Flight Time",
+            content: "This is blah blah"
+          })
+          break;
     }
 
-    const hanldeMouseLeaveStatusBadge = (evt: React.MouseEvent): void => {
-        setStatusText(Messages.menu.waitingForCommand)
-    }
+  }
 
-    const handleClickStatusBadge = (evt: React.MouseEvent): void => {
-        if( isOpen ){
-            setStatusText(Messages.menu.waitingForCommand)
-        }else{
-            setStatusText(Messages.menu.clickToCloseForm)
-        }
-        onToggle()
-    }
-
-    return ( 
-        <Flex
-            id='menu'
-            className={MenuStyles.menu}
-            as={"section"}
-            position={"absolute"}
-            // bg={"whitesmoke"}
-            width={"300px"}
-            height={"60%"}
-            right={"10%"}
-            bottom={"12%"}
-            zIndex={"999999"}
-            borderRadius={"15px"}
-            flexDir={"column"}
-            overflow={"hidden"}
-            {...CenteredProps}
-          >
-            <MenuCommandForm
-                onToggle={onToggle}
-                handleClickStatusBadge={handleClickStatusBadge}
-            />
-            <Flex
-              id='statusContainer'
-              width={"100%"}
-              height={"20%"}
-              // bg={"green"}
-              {...CenteredProps}
-            >
-              <Tag
-                id='statusBadge'
-                w={"90%"}
-                h="50%"
-                borderRadius={"15px"}
-                display={"flex"}
-                {...CenteredProps}
-                bg={"whitesmoke"}
-                gap={2}
-                cursor={"pointer"}
-                onMouseOver={handleMouseOverStatusBadge}
-                onMouseLeave={hanldeMouseLeaveStatusBadge}
-                onClick={handleClickStatusBadge}
-              >
-                <Box
-                  id='statusLightWrapper'
-                  width={"10%"}
-                  h={"100%"}
-                  display={"flex"}
-                  {...CenteredProps}
-                >
-                  <Badge
-                    id='statusLight'
-                    as={"span"}
-                    w="100%"
-                    height={"25px"}
-                    borderRadius={"full"}
-                    bg={"green"}
-                  >
-                  </Badge>
-                </Box>
-                <Box
-                  id='statusLight'
-                  width={"80%"}
-                  h={"100%"}
-                  // bg={"blue"}
-                  display={"flex"}
-                  {...CenteredProps}
-                >
-                  <Text
-                    as="p"
-                    w={"90%"}
-                    h={"50%"}
-                    textAlign={"center"}
-                  >
-                    {statusText}
-                  </Text>
-                </Box>
-              </Tag>
-            </Flex>
-          </Flex>
-     );
+  return (
+    <Flex
+      id="menuWrapper"
+      width={"500px"}
+      height={"80%"}
+      zIndex={"99999"}
+      position={"absolute"}
+      right={"10%"}
+      bottom={"10%"}
+      justifyContent={"right"}
+    >
+      { isOpen && (<HintBox
+        hintBoxContent={menuHintBoxContent}
+      />)}
+      <Flex
+        id='menu'
+        className={MenuStyles.menu}
+        as={"section"}
+        width={"55%"}
+        height={"100%"}
+        zIndex={"999999"}
+        borderRadius={"15px"}
+        flexDir={"column"}
+        overflow={"hidden"}
+        {...CenteredProps}
+      >
+        <MenuCommandForm
+          isOpen={isOpen}
+          onToggle={onToggle}
+          handleClickStatusBadge={handleClickStatusBadge}
+          handleFormInputClick={handleFormInputClick}
+        />
+        <StatusContainer
+          handleMouseOverStatusBadge={handleMouseOverStatusBadge}
+          handleClickStatusBadge={handleClickStatusBadge}
+          handleMouseLeaveStatusBadge={handleMouseLeaveStatusBadge}
+          statusText={statusText}
+        />
+      </Flex>
+    </Flex>
+  );
 }
 
 export default Menu;

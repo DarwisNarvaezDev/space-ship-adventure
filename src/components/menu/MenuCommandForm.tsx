@@ -1,28 +1,33 @@
-import { CloseButton, Flex, FormControl, Heading } from "@chakra-ui/react";
+import { Box, Button, CloseButton, Flex, FormControl, FormLabel, Heading, Input } from "@chakra-ui/react";
 import React, { FunctionComponent } from "react";
 import { Messages } from "../../messages/Messages.tsx";
 import { CenteredProps } from "../../styles/chakra/Props.tsx";
-import { Formik } from "formik";
+import { Field, Form, Formik } from "formik";
+import MenuStyles from '../../styles/menu/menu.module.css'
+
 
 interface MenuCommandFormProps {
+    isOpen: boolean
     onToggle: Function
     handleClickStatusBadge: Function
+    handleFormInputClick: Function
 }
  
 const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
+    isOpen,
     onToggle,
-    handleClickStatusBadge
+    handleClickStatusBadge,
+    handleFormInputClick
 }) => {
     return (
       <Flex
         id="commandFormContainer"
-        width={"90%"}
-        height={"80%"}
+        width={"100%"}
+        height={"90%"}
         borderRadius={"15px"}
         overflow={"hidden"}
       >
-        {/* { isOpen && ( */}
-        {true && (
+        { isOpen && (
           <Flex
             w={"100%"}
             h={"100%"}
@@ -59,8 +64,14 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
                 }}
               />
             </Flex>
-            <Flex id="formBody" w={"100%"} h={"80%"} bg="tomato">
-              <FormControl id="commandForm">
+            <Box 
+              id="formBody"
+              w={"100%"}
+              h={"80%"} 
+              display={"flex"}
+              flexDir={"column"}
+              {...CenteredProps} 
+              >
                 <Formik
                   initialValues={{
                     distance: "",
@@ -86,11 +97,77 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
                     isSubmitting,
                   }) => (
                     // The form here
-                    <></>
+                    <Form
+                      className={MenuStyles.menuForm}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        paddingLeft: "20px",
+                        paddingTop: "10px",
+                        paddingRight: "20px",
+                        display: "flex",
+                        flexDirection: "column"
+                      }}
+                    >
+                      <Field name='distance'>
+                        {({ field, form }) => (
+                         <FormControl>
+                            <FormLabel fontSize={"sm"}>Distance</FormLabel>
+                            <Input
+                              onClick={(evt: React.MouseEvent) => {
+                                handleFormInputClick(evt)
+                              }}
+                              variant={"filled"}
+                              {...field}
+                              placeholder='Distance in millions of km.'
+                              size={"sm"}
+                              ></Input>
+                         </FormControl> 
+                        )}
+                      </Field>
+                      <Field name='rocketSpeed'>
+                        {({ field, form }) => (
+                         <FormControl>
+                            <FormLabel fontSize={"sm"}>Rocket Speed</FormLabel>
+                            <Input
+                              variant={"filled"}
+                              {...field}
+                              placeholder='Speed in km/s.'
+                              onClick={(evt: React.MouseEvent) => {
+                                handleFormInputClick(evt)
+                              }}
+                              size={"sm"}
+                              ></Input>
+                         </FormControl> 
+                        )}
+                      </Field>
+                      <Field name='flightTime'>
+                        {({ field, form }) => (
+                         <FormControl>
+                            <FormLabel fontSize={"sm"}>Flight Time</FormLabel>
+                            <Input
+                              variant={"filled"}
+                              {...field}
+                              placeholder='Time in days.'
+                              onClick={(evt: React.MouseEvent) => {
+                                handleFormInputClick(evt)
+                              }}
+                              size={"sm"}
+                              ></Input>
+                         </FormControl> 
+                        )}
+                    </Field>
+                    <Button
+                      mt={4}
+                      colorScheme='red'
+                      type='submit'
+                    >
+                      Launch!
+                    </Button>
+                  </Form>
                   )}
                 </Formik>
-              </FormControl>
-            </Flex>
+            </Box>
           </Flex>
         )}
       </Flex>
