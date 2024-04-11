@@ -9,13 +9,14 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/react": "^18.2.74",
     "@types/react-dom": "^18.2.24",
     "animate.css": "^4.1.1",
+    "formik": "^2.4.5",
     "framer-motion": "^11.0.25",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "typescript": "^5.4.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -41,5 +42,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.76",
+    "@typescript-eslint/eslint-plugin": "^7.6.0",
+    "eslint": "^7.32.0"
   }
 }
