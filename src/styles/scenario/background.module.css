@@ -89,7 +89,7 @@ main {
     opacity: 1;
     position:absolute;
     top: 0%;
-    animation: shiftShuttle 2s ease-in-out forwards;
+    /* animation: shiftShuttle 2s ease-in-out forwards; */
 }
 
 .spaceFlight {
