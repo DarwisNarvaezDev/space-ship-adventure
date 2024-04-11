@@ -1,7 +1,6 @@
-import './App.css';
 import React, { useState } from 'react';
 
-import { Button, Fade, Flex, Image, ScaleFade, Tag, useDisclosure } from '@chakra-ui/react';
+import { Badge, Box, Button, Center, Fade, Flex, Image, ScaleFade, Tag, Text, useDisclosure } from '@chakra-ui/react';
 import { CenteredProps, SpaceInheritedFromParent } from './styles/chakra/Props.tsx';
 import Clouds from './components/Clouds.tsx';
 import Ground from './components/Ground.tsx';
@@ -9,6 +8,8 @@ import SpaceShuttle from './components/SpaceShuttle.tsx';
 import Space from './components/Space.tsx';
 import RushingClouds from './components/RushingClouds.tsx';
 import RocketWrapper from './components/RocketWrapper.tsx';
+import MenuStyles from './styles/menu/menu.module.css'
+import Menu from './components/Menu.tsx';
 
 function App(): React.ReactElement {
 
@@ -48,36 +49,7 @@ function App(): React.ReactElement {
           {/* <RocketWrapper /> */}
           <SpaceShuttle />
           {/* MENU */}
-          <Flex
-            id='menu'
-            // as={"section"}
-            position={"absolute"}
-            bg={"whitesmoke"}
-            width={"30vw"}
-            height={"80%"}
-            right={"10%"}
-            bottom={"17%"}
-            zIndex={"999999"}
-            borderRadius={"15px"}
-          >
-          </Flex>
-          <Tag
-                size='lg'
-                borderRadius='15px'
-                variant='solid'
-                style={{ position: 'absolute', bottom: '11%', right: '10%', zIndex: 9999 }}
-            >
-                <Flex
-                    as="div"
-                    w="20px"
-                    height="20px"
-                    background="green"
-                    marginRight="10px"
-                    borderRadius="full"
-                >
-                </Flex>
-                Waiting for command
-            </Tag>
+          <Menu />
           {/* MENU */}
         </Flex>
       </Flex>
