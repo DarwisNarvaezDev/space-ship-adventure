@@ -13,7 +13,6 @@ import RocketWrapper from './components/RocketWrapper.tsx';
 function App(): React.ReactElement {
 
   const handleClick = (evt: React.MouseEvent): void => {
-    // setAnimationClass(rocketLaunchAnimationClass)
   }
 
   return (

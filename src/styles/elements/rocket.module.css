@@ -10,25 +10,14 @@
     --rocket-X-distant-landed-position: 74%;
     --rocket-Y-distant-landed-position: 14%;
 
-    /* top From 25% to 5% to land */
     --rocket-Y-distant-arriving-landing-position: 25%;
     --rocket-Y-distant-landing-above-position: 5%;
 
-    /* right From 100% to 74% to land */
     --rocket-X-distant-landing-side-position: 100%;
 
     --rocket-blur-close: 0px;
     --rocket-blur-distant: 0.5px;
     --rocket-bottom-position: 62%;
-
-    --rocket-arriving-initial-rotation: 90deg;
-    --rocket-arriving-close-1-rotation: 90deg;
-    --rocket-arriving-close-2-rotation: 80deg;
-    --rocket-arriving-close-3-rotation: 60deg;
-    --rocket-arriving-close-4-rotation: 50deg;
-    --rocket-arriving-close-5-rotation: 40deg;
-    --rocket-arriving-close-6-rotation: 28deg;
-    --rocket-arriving-close-7-rotation: 25deg;
 
     --rocket-str-rotation: 20deg;
     --rocket-right-rotation: 21.5deg;
@@ -43,7 +32,7 @@
     filter: blur(var(--rocket-blur-close));
     position: absolute;
     z-index: 999999;
-    animation: doTakeOff 4s ease-in-out, 1s rocketFlying var(--animation-trip-delay) linear infinite, planetApprox 1s ease-in var(--animation-arrive-delay), doLanding 8s linear 10s forwards;
+    animation: doTakeOff 4s ease-in-out, 1s rocketFlying var(--animation-trip-delay) linear infinite, planetApprox 1s ease-in var(--animation-arrive-delay);
     animation-fill-mode: forwards;
 
     width: 100px;
@@ -52,8 +41,11 @@
     right: 50%;
 }
 
+.landingRocketWrapper {
+    animation: doLanding 8s ease-in-out 8s forwards;
+}
+
 .rocketSection {
-    animation: changeRocketSize 8s ease-in-out 10s forwards;
     transform: rotate(20deg);
 }
 
@@ -67,7 +59,16 @@
 }
 
 .flamesSection {
-    animation: hideFlames 0.1s linear 9s forwards;
+    animation: hideFlames 0.1s linear 15s forwards;
+}
+
+@keyframes doLanding {
+    0% {
+        top: -20%;
+    }
+    100% {
+        top: 17%;
+    }
 }
 
 @keyframes hideFlames {
@@ -90,74 +91,6 @@
     }
 }
 
-@keyframes doLanding {
-    0%{
-        width: var(--rocket-distant-small-size);
-        opacity: 0;
-        top: 15%;
-        right: 95%;
-        filter: blur(var(--rocket-blur-distant));
-        transform: rotate(var(--rocket-arriving-initial-rotation));
-    }
-    10% {
-        top: 25%;
-        right: 90%;
-        filter: blur(var(--rocket-blur-distant));
-        transform: rotate(var(--rocket-arriving-close-1-rotation));
-    }
-    25% {
-        top: 22.5%;
-        right: 87%;
-        filter: blur(var(--rocket-blur-distant));
-        transform: rotate(var(--rocket-arriving-close-2-rotation));
-    }
-    30% {
-        top: 18%;
-        right: 84%;
-        filter: blur(var(--rocket-blur-distant));
-        transform: rotate(var(--rocket-arriving-close-3-rotation));
-    }
-    45% {
-        top: 14%;
-        right: 80%;
-        filter: blur(var(--rocket-blur-distant));
-        transform: rotate(var(--rocket-arriving-close-4-rotation));
-    }
-    50% {
-        top: 10%;
-        right: 78%;
-        filter: blur(var(--rocket-blur-distant));
-        transform: rotate(var(--rocket-arriving-close-5-rotation));
-    }
-    75% {
-        top: 8%;
-        right: 75%;
-        filter: blur(var(--rocket-blur-distant));
-        transform: rotate(var(--rocket-arriving-close-6-rotation));
-    }
-    80% {
-        top: 10%;
-        right: 74%;
-        filter: blur(var(--rocket-blur-distant));
-        transform: rotate(var(--rocket-arriving-close-6-rotation));
-    }
-    90% {
-        top: 12%;
-        right: 74%;
-        filter: blur(var(--rocket-blur-distant));
-        transform: rotate(var(--rocket-str-rotation));
-    }
-    100% {
-        width: var(--rocket-distant-size);
-        opacity: 1;
-        top: var(--rocket-Y-distant-landed-position);
-        right: var(--rocket-X-distant-landed-position);
-        filter: blur(var(--rocket-blur-distant));
-        transform: rotate(28deg);
-
-    }
-}
-
 @keyframes planetApprox {
     0% {
         top: var(--rocket-Y-middle-position);
@@ -165,6 +98,7 @@
     100% {
         top: -40%;
         opacity: 0;
+        visibility: hidden;
     }
 }
 

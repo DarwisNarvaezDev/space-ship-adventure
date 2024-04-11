@@ -18,8 +18,6 @@ function RocketWrapper() {
         >
             <Flex
                 id="rocketShipContainer"
-                // height={"45%"}
-                // width={"100px"}
                 zIndex={"99999"}
                 flexDir={"column"}
                 className={RocketStyle.rocket}
