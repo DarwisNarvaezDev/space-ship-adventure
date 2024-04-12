@@ -1,24 +1,33 @@
 import { Box, Button, CloseButton, Flex, FormControl, FormLabel, Heading, Input } from "@chakra-ui/react";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useReducer, useState } from "react";
 import { Messages } from "../../messages/Messages.tsx";
 import { CenteredProps } from "../../styles/chakra/Props.tsx";
 import { Field, Form, Formik } from "formik";
 import MenuStyles from '../../styles/menu/menu.module.css'
-
+import { MenuActionPayload } from "../../reducer/MenuReducer.tsx";
 
 interface MenuCommandFormProps {
     isOpen: boolean
     onToggle: Function
     handleClickStatusBadge: Function
     handleFormInputClick: Function
+    reducerState: MenuActionPayload,
+    reducerDispatcher: any
 }
  
 const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
     isOpen,
     onToggle,
     handleClickStatusBadge,
-    handleFormInputClick
+    handleFormInputClick,
+    reducerState,
+    reducerDispatcher
 }) => {
+
+    const [ launchButtonText, setLaunchButtonText ] = useState<string>(reducerState.statusText);
+    const [ inputDisabled, setInputDisabled ] = useState<boolean>(reducerState.isInputsDisabled);
+    const [ launchButtonDisabled, setLaunchButtonDisabled ] = useState<boolean>(reducerState.isLaunchButtonsDisabled);
+
     return (
       <Flex
         id="commandFormContainer"
@@ -34,7 +43,6 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
             bg={"whitesmoke"}
             style={{ animationDuration: "0.5s" }}
             boxShadow={"md"}
-            className={"animate__animated animate__bounceInUp"}
             flexDir={"column"}
           >
             <Flex
@@ -114,6 +122,7 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
                          <FormControl>
                             <FormLabel fontSize={"sm"}>Distance</FormLabel>
                             <Input
+                              disabled={inputDisabled}
                               onClick={(evt: React.MouseEvent) => {
                                 handleFormInputClick(evt)
                               }}
@@ -130,6 +139,7 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
                          <FormControl>
                             <FormLabel fontSize={"sm"}>Rocket Speed</FormLabel>
                             <Input
+                              disabled={inputDisabled}
                               variant={"filled"}
                               {...field}
                               placeholder='Speed in km/s.'
@@ -146,6 +156,7 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
                          <FormControl>
                             <FormLabel fontSize={"sm"}>Flight Time</FormLabel>
                             <Input
+                              disabled={inputDisabled}
                               variant={"filled"}
                               {...field}
                               placeholder='Time in days.'
@@ -161,8 +172,9 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
                       mt={4}
                       colorScheme='red'
                       type='submit'
+                      isDisabled={inputDisabled || launchButtonDisabled}
                     >
-                      Launch!
+                      {launchButtonText}
                     </Button>
                   </Form>
                   )}

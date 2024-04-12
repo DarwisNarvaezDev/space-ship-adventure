@@ -17,3 +17,17 @@
 .menuForm {
     gap: 5px;
 }
+
+.status {
+    transition: opacity 0.8s linear;
+    animation: shimmer 0.8s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

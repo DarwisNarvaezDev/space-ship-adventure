@@ -45,6 +45,7 @@ const HintBox: FunctionComponent<HintBoxProps> = ({hintBoxContent}) => {
                 <Text
                   fontSize={"13px"}
                   maxW={"100%"}
+                  color={"grey"}
                 >{hintBoxContent.content}</Text>
                 </Flex>
                 </Stack>
