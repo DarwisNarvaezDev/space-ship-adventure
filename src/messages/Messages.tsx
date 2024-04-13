@@ -15,7 +15,7 @@ export const Messages = {
             },
             flightTime: {
                 header: 'Flight Time',
-                content: 'For hoy many days is the rocket going to flight: 180 days for all the planets.'
+                content: 'For how many days is the rocket going to flight: 180 days for all the planets.'
             }
         },
         launchButtonText: 'Launch!',
