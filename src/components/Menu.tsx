@@ -1,6 +1,6 @@
 import { Badge, Box, CloseButton, Flex, FormControl, FormHelperText, FormLabel, HStack, Heading, Radio, RadioGroup, ScaleFade, Stack, Tag, Text, useDisclosure } from "@chakra-ui/react";
 import MenuStyles from '../styles/menu/menu.module.css'
-import React, { useReducer, useState } from "react";
+import React, { FunctionComponent, useReducer, useState } from "react";
 import { CenteredProps } from "../styles/chakra/Props.tsx";
 import { Messages } from "../messages/Messages.tsx";
 import MenuCommandForm from "./menu/MenuCommandForm.tsx";
@@ -11,16 +11,17 @@ import { MenuHintBoxContent } from "../interfaces/MenuHintBoxContent.tsx";
 import { MenuActionKind, MenuActionPayload, menuReducer } from "../reducer/MenuReducer.tsx";
 import { MenuStatusColor } from "../interfaces/MenuStatusColor.tsx";
 
-function Menu() {
+interface MenuProps {
+  reducerState: MenuActionPayload
+  reducerDispatcher: Function
+}
 
-  const [ state, dispatch ] = useReducer(menuReducer, {
-      isInputsDisabled: false,
-      isLaunchButtonsDisabled: true,
-      statusColor: MenuStatusColor.waitingCommand,
-      statusText: Messages.menu.waitingForCommand
-  })
+const Menu: FunctionComponent<MenuProps> = ({
+  reducerState,
+  reducerDispatcher
+}) => {
 
-  const [statusText, setStatusText] = useState<string>(state.statusText)
+  const [statusText, setStatusText] = useState<string>(reducerState.statusText)
   const { isOpen, onToggle } = useDisclosure()
   const [ menuHintBoxContent, setMenuHintBoxContent ] = useState<MenuHintBoxContent>({
     title: Messages.menu.hintBox.greeting.header,
@@ -28,16 +29,16 @@ function Menu() {
   })
 
   const handleMouseOverStatusBadge = (evt: React.MouseEvent): void => {
-    dispatch({
+    reducerDispatcher({
       type: MenuActionKind.SHOW_CLICK_HINT,
       payload: {}
     })
   }
 
   const handleMouseLeaveStatusBadge = (evt: React.MouseEvent): void => {
-    dispatch({
+    reducerDispatcher({
       type: MenuActionKind.SHOW_STATUS_MESSAGE,
-      payload: { statusText: state.statusText }
+      payload: { statusText: reducerState.statusText }
     })
   }
 
@@ -112,17 +113,17 @@ function Menu() {
           onToggle={onToggle}
           handleClickStatusBadge={handleClickStatusBadge}
           handleFormInputClick={handleFormInputClick}
-          reducerState={state}
-          reducerDispatcher={dispatch}
+          reducerState={reducerState}
+          reducerDispatcher={reducerDispatcher}
         />
         <StatusContainer
           handleMouseOverStatusBadge={handleMouseOverStatusBadge}
           handleClickStatusBadge={handleClickStatusBadge}
           handleMouseLeaveStatusBadge={handleMouseLeaveStatusBadge}
-          statusText={state.statusText}
-          statusColor={state.statusColor}
-          reducerState={state}
-          reducerDispatcher={dispatch}
+          statusText={reducerState.statusText}
+          statusColor={reducerState.statusColor}
+                    reducerState={reducerState}
+          reducerDispatcher={reducerDispatcher}
         />
       </Flex>
     </Flex>
