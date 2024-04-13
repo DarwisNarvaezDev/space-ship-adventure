@@ -28,15 +28,17 @@ function Menu() {
   })
 
   const handleMouseOverStatusBadge = (evt: React.MouseEvent): void => {
-    if (!isOpen) {
-      setStatusText(Messages.menu.clickToEnterCommand)
-    } else {
-      setStatusText(Messages.menu.clickToCloseForm)
-    }
+    dispatch({
+      type: MenuActionKind.SHOW_CLICK_HINT,
+      payload: {}
+    })
   }
 
   const handleMouseLeaveStatusBadge = (evt: React.MouseEvent): void => {
-    setStatusText(Messages.menu.waitingForCommand)
+    dispatch({
+      type: MenuActionKind.SHOW_STATUS_MESSAGE,
+      payload: { statusText: state.statusText }
+    })
   }
 
   const handleClickStatusBadge = (evt: React.MouseEvent): void => {
@@ -117,7 +119,7 @@ function Menu() {
           handleMouseOverStatusBadge={handleMouseOverStatusBadge}
           handleClickStatusBadge={handleClickStatusBadge}
           handleMouseLeaveStatusBadge={handleMouseLeaveStatusBadge}
-          statusText={statusText}
+          statusText={state.statusText}
           statusColor={state.statusColor}
         />
       </Flex>

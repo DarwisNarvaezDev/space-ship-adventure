@@ -4,7 +4,7 @@ import { Messages } from "../../messages/Messages.tsx";
 import { CenteredProps } from "../../styles/chakra/Props.tsx";
 import { Field, Form, Formik } from "formik";
 import MenuStyles from '../../styles/menu/menu.module.css'
-import { MenuActionPayload } from "../../reducer/MenuReducer.tsx";
+import { MenuActionKind, MenuActionPayload } from "../../reducer/MenuReducer.tsx";
 
 interface MenuCommandFormProps {
     isOpen: boolean
@@ -24,9 +24,11 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
     reducerDispatcher
 }) => {
 
-    const [ launchButtonText, setLaunchButtonText ] = useState<string>(reducerState.statusText);
-    const [ inputDisabled, setInputDisabled ] = useState<boolean>(reducerState.isInputsDisabled);
-    const [ launchButtonDisabled, setLaunchButtonDisabled ] = useState<boolean>(reducerState.isLaunchButtonsDisabled);
+    // Series of "will-not-use" states, that prevent react complain about
+    // uncontrolled inputs
+    const [email, setEmail] = useState<string>('')
+    const [rocketSpeed, setRocketSpeed] = useState<string>('')
+    const [flightTime, setFlightTime] = useState<string>('')
 
     return (
       <Flex
@@ -82,13 +84,21 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
               >
                 <Formik
                   initialValues={{
-                    distance: "",
-                    speed: "",
-                    days: "",
+                    distance: email || '',
+                    rocketSpeed: rocketSpeed || '',
+                    flightTime: flightTime || '',
                   }}
-                  validate={(values) => {
+                  validate={({
+                    distance,
+                    rocketSpeed,
+                    flightTime
+                  }) => {
                     const errors = {};
-
+                    if( distance && rocketSpeed && flightTime ){
+                      reducerDispatcher({ type: MenuActionKind.READY_FOR_LAUNCH })
+                    }else{
+                      reducerDispatcher({ type: MenuActionKind.WAITING_FOR_COMMAND })
+                    }
                     return errors;
                   }}
                   onSubmit={(values, { setSubmitting }) => {
@@ -122,7 +132,7 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
                          <FormControl>
                             <FormLabel fontSize={"sm"}>Distance</FormLabel>
                             <Input
-                              disabled={inputDisabled}
+                              disabled={reducerState.isInputsDisabled}
                               onClick={(evt: React.MouseEvent) => {
                                 handleFormInputClick(evt)
                               }}
@@ -139,7 +149,7 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
                          <FormControl>
                             <FormLabel fontSize={"sm"}>Rocket Speed</FormLabel>
                             <Input
-                              disabled={inputDisabled}
+                              disabled={reducerState.isInputsDisabled}
                               variant={"filled"}
                               {...field}
                               placeholder='Speed in km/s.'
@@ -156,7 +166,7 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
                          <FormControl>
                             <FormLabel fontSize={"sm"}>Flight Time</FormLabel>
                             <Input
-                              disabled={inputDisabled}
+                              disabled={reducerState.isInputsDisabled}
                               variant={"filled"}
                               {...field}
                               placeholder='Time in days.'
@@ -172,9 +182,9 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
                       mt={4}
                       colorScheme='red'
                       type='submit'
-                      isDisabled={inputDisabled || launchButtonDisabled}
+                      isDisabled={reducerState.isLaunchButtonsDisabled}
                     >
-                      {launchButtonText}
+                      {Messages.menu.launchButtonText}
                     </Button>
                   </Form>
                   )}

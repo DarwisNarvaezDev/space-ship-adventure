@@ -20,10 +20,9 @@ export const Messages = {
         },
         launchButtonText: 'Launch!',
         formHeader: 'Enter Flight Command',
-        clickToEnterCommand: 'Click to enter command.',
-        clickToCloseForm: 'Click here to close form.',
-        waitingForCommand: 'Waiting for command.',
-        ReceivingCommand: 'Receiving command.',
-        ReadyForLaunch: 'Ready for launch!.'
+        clickToEnterCommand: 'Command menu',
+        waitingForCommand: 'Waiting for command',
+        ReceivingCommand: 'Receiving comman',
+        ReadyForLaunch: 'Ready to launch!'
     }
 }

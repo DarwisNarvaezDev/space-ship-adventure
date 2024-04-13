@@ -24,10 +24,6 @@ function Clouds(){
                 className = BackgroundProps.closeCloud;
                 break;
         }
-
-        console.log(className);
-        
-
         return className;
     }
 

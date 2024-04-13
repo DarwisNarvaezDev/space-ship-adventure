@@ -1,5 +1,5 @@
 import { Badge, Box, Flex, Tag, Text } from "@chakra-ui/react";
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { CenteredProps } from "../../styles/chakra/Props.tsx";
 import MenuStyles from '../../styles/menu/menu.module.css'
 import { MenuStatusColor } from "../../interfaces/MenuStatusColor.tsx";
@@ -20,8 +20,11 @@ const StatusContainer: FunctionComponent<StatusContainerProps> = ({
     statusColor
 }) => {
 
+    useEffect(()=>{
+      resolveStatusColor()
+    },[statusColor])
+
     const STATUS_COLOR_CLASS = MenuStyles.status
-    // const [ statusColor, setstatusColor ] = useState<string>(MenuStatusColor.waitingCommand);
     const [ statusColorClass, setStatusColorClass ] = useState<string>(STATUS_COLOR_CLASS)
     const resolveStatusColor = ():void => {
       if( statusColor == MenuStatusColor.readyForLaunch ){
