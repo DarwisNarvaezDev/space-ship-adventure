@@ -29,6 +29,8 @@ const StatusContainer: FunctionComponent<StatusContainerProps> = ({
     const resolveStatusColor = ():void => {
       if( statusColor == MenuStatusColor.readyForLaunch ){
         setStatusColorClass('')
+      }else{
+        setStatusColorClass(STATUS_COLOR_CLASS)
       }
     }
 
