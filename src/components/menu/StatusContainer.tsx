@@ -3,6 +3,7 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import { CenteredProps } from "../../styles/chakra/Props.tsx";
 import MenuStyles from '../../styles/menu/menu.module.css'
 import { MenuStatusColor } from "../../interfaces/MenuStatusColor.tsx";
+import { MenuActionKind, MenuActionPayload } from "../../reducer/MenuReducer.tsx";
 
 interface StatusContainerProps {
     handleMouseOverStatusBadge: Function
@@ -10,6 +11,8 @@ interface StatusContainerProps {
     handleMouseLeaveStatusBadge: Function
     statusText: string
     statusColor: string
+    reducerState: MenuActionPayload,
+    reducerDispatcher: any
 }
  
 const StatusContainer: FunctionComponent<StatusContainerProps> = ({
@@ -17,7 +20,9 @@ const StatusContainer: FunctionComponent<StatusContainerProps> = ({
     handleClickStatusBadge,
     handleMouseLeaveStatusBadge,
     statusText,
-    statusColor
+    statusColor,
+    reducerDispatcher,
+    reducerState
 }) => {
 
     useEffect(()=>{
@@ -40,6 +45,9 @@ const StatusContainer: FunctionComponent<StatusContainerProps> = ({
         width={"100%"}
         height={"10%"}
         {...CenteredProps}
+        onClick={()=>{
+          reducerDispatcher({ type: MenuActionKind.HIDE_SHOW_MENU })
+        }}
       >
         <Tag
           id='statusBadge'

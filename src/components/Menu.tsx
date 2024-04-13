@@ -121,6 +121,8 @@ function Menu() {
           handleMouseLeaveStatusBadge={handleMouseLeaveStatusBadge}
           statusText={state.statusText}
           statusColor={state.statusColor}
+          reducerState={state}
+          reducerDispatcher={dispatch}
         />
       </Flex>
     </Flex>

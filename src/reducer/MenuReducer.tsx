@@ -6,7 +6,8 @@ export enum MenuActionKind {
     WAITING_FOR_COMMAND = "WAITING",
     READY_FOR_LAUNCH = "READY",
     SHOW_CLICK_HINT = "CLICK",
-    SHOW_STATUS_MESSAGE = "MESSAGE"
+    SHOW_STATUS_MESSAGE = "MESSAGE",
+    HIDE_SHOW_MENU = "HIDE_MENU"
 }
 
 export interface MenuActionPayload {
@@ -67,6 +68,10 @@ export function menuReducer(state: MenuActionPayload, action: MenuAction){
                             ...state,
                             statusText: Messages.menu.ReadyForLaunch
                         }
+                }
+        case MenuActionKind.HIDE_SHOW_MENU:
+                return {
+                    ...state
                 }
         default:
             return state;
