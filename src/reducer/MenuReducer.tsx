@@ -7,7 +7,8 @@ export enum MenuActionKind {
     READY_FOR_LAUNCH = "READY",
     SHOW_CLICK_HINT = "CLICK",
     SHOW_STATUS_MESSAGE = "MESSAGE",
-    HIDE_SHOW_MENU = "HIDE_MENU"
+    HIDE_SHOW_MENU = "HIDE_MENU",
+    SET_MENU_DATA = "SET_MENU"
 }
 
 export interface MenuActionPayload {
@@ -15,6 +16,9 @@ export interface MenuActionPayload {
     isLaunchButtonsDisabled?: boolean
     statusText?: string
     statusColor?: string
+    distance?: number
+    rocketSpeed?: number
+    flightTime?: number
 }
 
 interface MenuAction {
@@ -22,9 +26,9 @@ interface MenuAction {
     payload: MenuActionPayload
 }
 
-export function menuReducer(state: MenuActionPayload, action: MenuAction){
+export function menuReducer(state: MenuActionPayload, action: MenuAction) {
     const { type, payload } = action;
-    switch( type ){
+    switch (type) {
         case MenuActionKind.WAITING_FOR_COMMAND:
             return {
                 isInputsDisabled: false,
@@ -34,45 +38,54 @@ export function menuReducer(state: MenuActionPayload, action: MenuAction){
             }
         case MenuActionKind.RECEIVING_DATA:
             return {
-                isInputsDisabled: true,
-                isLaunchButtonsDisabled: true,
+                isInputsDisabled: false,
+                isLaunchButtonsDisabled: false,
                 statusText: Messages.menu.ReceivingCommand,
                 statusColor: MenuStatusColor.receivingCommand
             }
         case MenuActionKind.READY_FOR_LAUNCH:
-                return {
-                    isInputsDisabled: false,
-                    isLaunchButtonsDisabled: false,
-                    statusText: Messages.menu.ReadyForLaunch,
-                    statusColor: MenuStatusColor.readyForLaunch
-                }
+            return {
+                isInputsDisabled: false,
+                isLaunchButtonsDisabled: false,
+                statusText: Messages.menu.ReadyForLaunch,
+                statusColor: MenuStatusColor.readyForLaunch
+            }
         case MenuActionKind.SHOW_CLICK_HINT:
-                return {
-                    ...state,
-                    statusText: Messages.menu.clickToEnterCommand
-                }    
+            return {
+                ...state,
+                statusText: Messages.menu.clickToEnterCommand
+            }
         case MenuActionKind.SHOW_STATUS_MESSAGE:
-                switch(state.statusColor){
-                    case MenuStatusColor.waitingCommand:
-                        return {
-                            ...state,
-                            statusText: Messages.menu.waitingForCommand
-                        }
-                    case MenuStatusColor.receivingCommand:
-                        return {
-                            ...state,
-                            statusText: Messages.menu.ReceivingCommand
-                        }
-                    case MenuStatusColor.readyForLaunch:
-                        return {
-                            ...state,
-                            statusText: Messages.menu.ReadyForLaunch
-                        }
-                }
+            switch (state.statusColor) {
+                case MenuStatusColor.waitingCommand:
+                    return {
+                        ...state,
+                        statusText: Messages.menu.waitingForCommand
+                    }
+                case MenuStatusColor.receivingCommand:
+                    return {
+                        ...state,
+                        statusText: Messages.menu.ReceivingCommand
+                    }
+                case MenuStatusColor.readyForLaunch:
+                    return {
+                        ...state,
+                        statusText: Messages.menu.ReadyForLaunch
+                    }
+            }
         case MenuActionKind.HIDE_SHOW_MENU:
-                return {
-                    ...state
-                }
+            return {
+                ...state
+            }
+        case MenuActionKind.SET_MENU_DATA:
+            console.log(payload);
+            
+            return {
+                ...state,
+                distance: state.distance == payload.distance ? state.distance : payload.distance,
+                flightTime: state.flightTime == payload.flightTime ? state.flightTime : payload.flightTime,
+                rocketSpeed: state.rocketSpeed == payload.rocketSpeed ? state.rocketSpeed : payload.rocketSpeed,
+            }
         default:
             return state;
     }

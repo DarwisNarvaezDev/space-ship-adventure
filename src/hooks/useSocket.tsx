@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import socketIOClient, { Socket } from 'socket.io-client';
+import socketIOClient, { Socket, io } from 'socket.io-client';
 
 export interface ExternalCommand {
     distance: number
@@ -8,11 +8,16 @@ export interface ExternalCommand {
 }
 
 interface ServerToClientEvents {
-    commandReceived: (state: ExternalCommand) => void
+    command: (state: ExternalCommand) => void
 }
 
-export function useSocket({ endpoint }: { endpoint: string }) {
-    const socket: Socket<ServerToClientEvents> = socketIOClient(endpoint)
+export function useSocket({ endpoint, appToken }: { endpoint: string, appToken: string }) {
+
+    const socket: Socket<ServerToClientEvents> = io(endpoint, {
+      auth: {
+        token: appToken
+      }
+    })
     const [ isConnected, setIsConnected ] = useState(false)
 
     useEffect(() => {

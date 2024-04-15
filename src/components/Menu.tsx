@@ -14,15 +14,18 @@ import { MenuStatusColor } from "../interfaces/MenuStatusColor.tsx";
 interface MenuProps {
   reducerState: MenuActionPayload
   reducerDispatcher: Function
+  isOpen: boolean
+  onToggle: Function
 }
 
 const Menu: FunctionComponent<MenuProps> = ({
   reducerState,
-  reducerDispatcher
+  reducerDispatcher,
+  isOpen,
+  onToggle
 }) => {
 
   const [statusText, setStatusText] = useState<string>(reducerState.statusText)
-  const { isOpen, onToggle } = useDisclosure()
   const [ menuHintBoxContent, setMenuHintBoxContent ] = useState<MenuHintBoxContent>({
     title: Messages.menu.hintBox.greeting.header,
     content: Messages.menu.hintBox.greeting.content

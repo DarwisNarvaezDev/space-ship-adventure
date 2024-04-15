@@ -1,5 +1,5 @@
 import { Box, Button, CloseButton, Flex, FormControl, FormLabel, Heading, Input } from "@chakra-ui/react";
-import React, { FunctionComponent, useReducer, useRef, useState } from "react";
+import React, { FunctionComponent, useEffect, useReducer, useRef, useState } from "react";
 import { Messages } from "../../messages/Messages.tsx";
 import { CenteredProps } from "../../styles/chakra/Props.tsx";
 import { Field, Form, Formik } from "formik";
@@ -25,11 +25,11 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
   reducerDispatcher
 }) => {
 
-  const [distance, setDistance] = useState<string>('')
+  const [distance, setDistance] = useState<number | null | undefined>(null)
   const distanceRef = useRef<string>()
-  const [rocketSpeed, setRocketSpeed] = useState<string>('')
+  const [rocketSpeed, setRocketSpeed] = useState<number | null | undefined>(null)
   const rocketSpeedeRef = useRef<string>()
-  const [flightTime, setFlightTime] = useState<string>('')
+  const [flightTime, setFlightTime] = useState<number | null | undefined>(null)
   const flightTimeRef = useRef<string>()
 
   const handleInputClickWrapper = (evt: React.MouseEvent) => {
@@ -47,6 +47,12 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
         setFlightTime(flightTimeRef.current.value)
     }
   }
+
+  useEffect(()=>{
+    setDistance(reducerState.distance)
+    setFlightTime(reducerState.flightTime)
+    setRocketSpeed(reducerState.rocketSpeed)
+  }, [reducerState])
 
   return (
     <Flex

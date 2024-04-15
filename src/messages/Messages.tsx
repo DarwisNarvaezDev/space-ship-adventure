@@ -22,7 +22,7 @@ export const Messages = {
         formHeader: 'Enter Flight Command',
         clickToEnterCommand: 'Command menu',
         waitingForCommand: 'Waiting for command',
-        ReceivingCommand: 'Receiving comman',
+        ReceivingCommand: 'Receiving command',
         ReadyForLaunch: 'Ready to launch!'
     }
 }

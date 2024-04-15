@@ -1,3 +1,3 @@
 export enum Events {
-    COMMAND_RECEIVED
+    COMMAND_RECEIVED = 'command'
 }
