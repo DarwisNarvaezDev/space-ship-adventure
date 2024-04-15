@@ -42,9 +42,6 @@ function App(): React.ReactElement {
     reducerDispatcher({ type: MenuActionKind.RECEIVING_DATA, payload: {} });
     reducerDispatcher({ type: MenuActionKind.SET_MENU_DATA, payload: externalCommand });
     setOpenModal(!openModal)
-    setTimeout(()=>{
-      reducerDispatcher({ type: MenuActionKind.READY_FOR_LAUNCH, payload: externalCommand });
-    }, 2000)
 
   })
 
