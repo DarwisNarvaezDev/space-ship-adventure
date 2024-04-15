@@ -45,6 +45,7 @@ export function menuReducer(state: MenuActionPayload, action: MenuAction) {
             }
         case MenuActionKind.READY_FOR_LAUNCH:
             return {
+                ...state,
                 isInputsDisabled: false,
                 isLaunchButtonsDisabled: false,
                 statusText: Messages.menu.ReadyForLaunch,
