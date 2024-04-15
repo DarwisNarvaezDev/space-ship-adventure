@@ -6,6 +6,7 @@ import { Field, Form, Formik } from "formik";
 import MenuStyles from '../../styles/menu/menu.module.css'
 import { MenuActionKind, MenuActionPayload } from "../../reducer/MenuReducer.tsx";
 import { MenuFormFieldNames } from "../../interfaces/MenuForm.tsx";
+import { RocketActionKind, RocketActionPayload } from "../../reducer/RocketReducer.tsx";
 
 interface MenuCommandFormProps {
   isOpen: boolean
@@ -13,7 +14,9 @@ interface MenuCommandFormProps {
   handleClickStatusBadge: Function
   handleFormInputClick: Function
   reducerState: MenuActionPayload,
-  reducerDispatcher: any
+  reducerDispatcher: any,
+  rocketReducerState: RocketActionPayload
+  rocketReducerDispatcher: Function
 }
 
 const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
@@ -22,7 +25,9 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
   handleClickStatusBadge,
   handleFormInputClick,
   reducerState,
-  reducerDispatcher
+  reducerDispatcher,
+  rocketReducerState,
+  rocketReducerDispatcher
 }) => {
 
   const [distance, setDistance] = useState<number | null | undefined>(null)
@@ -46,6 +51,13 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
       case MenuFormFieldNames.flightTime:
         setFlightTime(flightTimeRef.current.value)
     }
+  }
+
+  const handleLaunchButton = (evt: React.MouseEvent) => {
+    rocketReducerDispatcher({
+      type: RocketActionKind.LAUNCH_TO_PLANET,
+      payload: {}
+    })
   }
 
   useEffect(()=>{
@@ -207,6 +219,7 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
                     colorScheme='red'
                     type='submit'
                     isDisabled={reducerState.isLaunchButtonsDisabled}
+                    onClick={handleLaunchButton}
                   >
                     {Messages.menu.launchButtonText}
                   </Button>

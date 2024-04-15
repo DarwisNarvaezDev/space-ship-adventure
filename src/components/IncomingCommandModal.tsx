@@ -3,20 +3,33 @@ import React, { FunctionComponent } from "react";
 import { CenteredProps } from "../styles/chakra/Props.tsx";
 import { Messages } from "../messages/Messages.tsx";
 import { MenuActionPayload } from "../reducer/MenuReducer.tsx";
+import { RocketActionKind, RocketActionPayload } from "../reducer/RocketReducer.tsx";
 
 interface IncomingModalProps {
     isOpen: boolean
     setOpenModal: Function
     toggleMenu: Function
     incomingCommandData: MenuActionPayload
+    rocketReducerState: RocketActionPayload
+    rocketReducerDispatcher: Function
 }
 
 export const IncomingCommandModal: FunctionComponent<IncomingModalProps> = ({
     isOpen,
     setOpenModal,
     toggleMenu,
-    incomingCommandData
+    incomingCommandData,
+    rocketReducerState,
+    rocketReducerDispatcher
 }) => {
+
+    const handleLaunchButton = (evt: React.MouseEvent) => {
+        rocketReducerDispatcher({
+          type: RocketActionKind.LAUNCH_TO_PLANET,
+          payload: {}
+        })
+      }
+
     return (
         <>
             {isOpen && (
@@ -87,6 +100,10 @@ export const IncomingCommandModal: FunctionComponent<IncomingModalProps> = ({
                                 id="modalLaunch"
                                 colorScheme={"red"}
                                 size={"md"}
+                                onClick={(evt)=>{
+                                    setOpenModal(false)
+                                    handleLaunchButton(evt)
+                                }}
                             >
                                 {Messages.menu.launchButtonText}
                             </Button>
@@ -94,7 +111,7 @@ export const IncomingCommandModal: FunctionComponent<IncomingModalProps> = ({
                                 id="modalEdit"
                                 colorScheme={"blue"}
                                 size={"md"}
-                                onClick={()=>{
+                                onClick={(evt)=>{
                                     setOpenModal(false)
                                     toggleMenu()
                                 }}

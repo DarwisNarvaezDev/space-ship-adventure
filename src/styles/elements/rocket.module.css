@@ -7,6 +7,9 @@
     --rocket-Y-middle-position: 25%;
     --rocket-X-middle-position: 45.6%;
 
+    --rocket-X-landed-position: 45%;
+    --rocket-Y-landed-position: 65%;
+
     --rocket-X-distant-landed-position: 74%;
     --rocket-Y-distant-landed-position: 14%;
 
@@ -32,17 +35,22 @@
     filter: blur(var(--rocket-blur-close));
     position: absolute;
     z-index: 999999;
-    animation: doTakeOff 4s ease-in-out, 1s rocketFlying var(--animation-trip-delay) linear infinite, planetApprox 1s ease-in var(--animation-arrive-delay);
     animation-fill-mode: forwards;
 
+    /* animation: doTakeOff 4s ease-in-out, 1s rocketFlying var(--animation-trip-delay) linear infinite, planetApprox 1s ease-in var(--animation-arrive-delay); */
+
     width: 100px;
-    height: 45%;
-    top: 15%;
-    right: 50%;
+    height: var(--rocket-X-landed-position);
+    top: var(--rocket-Y-landed-position);
+    right:45%;
+}
+
+.animateRocket {
+    animation: doTakeOff 4s ease-in-out, 1s rocketFlying var(--animation-trip-delay) linear infinite, planetApprox 1s ease-in var(--animation-arrive-delay);
 }
 
 .landingRocketWrapper {
-    animation: doLanding 8s ease-in-out 8s forwards;
+    /* animation: doLanding 8s ease-in-out 8s forwards; */
 }
 
 .rocketSection {
@@ -105,7 +113,7 @@
 @keyframes rocketFlying {
     0% {
         top: var(--rocket-Y-middle-position);
-        right: 45.5%;
+        right: 45%;
     }
     25% {
         top: 24%;
@@ -115,14 +123,14 @@
     }
     100% {
         top: var(--rocket-Y-middle-position);
-        right: 45.5%;
+        right: 45%;
     }
 }
 
 @keyframes doTakeOff {
     0% {
-        right: 45.5%;
-        top: 62%;
+        right: var(--rocket-X-landed-position);
+        top: var(--rocket-Y-landed-position);
     }
     25% {
         right: 54%;
@@ -136,6 +144,6 @@
     }
     100%{
         top: var(--rocket-Y-middle-position);
-        right: 45.5%;
+        right: var(--rocket-X-landed-position);
     }    
 }

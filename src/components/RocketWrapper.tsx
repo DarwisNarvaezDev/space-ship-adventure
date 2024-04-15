@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import RocketShip from '../assets/rocketship.svg'
 import Flames from '../assets/flames.gif'
 import RocketStyle from '../styles/elements/rocket.module.css'
-import BackgroundStyles from '../styles/scenario/background.module.css'
 import { Flex } from "@chakra-ui/react";
 import { CenteredProps } from "../styles/chakra/Props.tsx";
+import { RocketActionKind, RocketActionPayload } from "../reducer/RocketReducer.tsx";
 
-function RocketWrapper() {
-    
+interface RocketWrapperProps {
+    rocketReducerState: RocketActionPayload
+    rocketReducerDispatcher: any
+}
+
+const RocketWrapper: FunctionComponent<RocketWrapperProps> = ({
+    rocketReducerState,
+    rocketReducerDispatcher
+}) => {
+
+    const [ rocketAnimationClass, setRocketAnimationClass ] = useState<string>('');
+
+    useEffect(()=>{
+        setRocketAnimationClass(rocketReducerState.landingAndApproxClass)
+    }, [rocketReducerState])
+
     return (
         <Flex
             id="rocketShipWrapper"
@@ -20,7 +34,7 @@ function RocketWrapper() {
                 id="rocketShipContainer"
                 zIndex={"99999"}
                 flexDir={"column"}
-                className={RocketStyle.rocket}
+                className={`${RocketStyle.rocket} ${rocketAnimationClass}`}
             >
                     <Flex
                         id="rocketSection"
@@ -40,7 +54,8 @@ function RocketWrapper() {
                         className={RocketStyle.flamesSection}
                         height={"40%"}
                         width={"100%"}
-                        style={{
+                        zIndex={9999999}
+                        style={!rocketReducerState.isRocketSmoke ? {} : {
                             backgroundImage: `url(${Flames})`,
                             backgroundSize: "105%",
                             backgroundRepeat: "no-repeat",

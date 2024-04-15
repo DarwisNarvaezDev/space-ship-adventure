@@ -10,10 +10,13 @@ import { MenuFormFieldNames } from "../interfaces/MenuForm.tsx";
 import { MenuHintBoxContent } from "../interfaces/MenuHintBoxContent.tsx";
 import { MenuActionKind, MenuActionPayload, menuReducer } from "../reducer/MenuReducer.tsx";
 import { MenuStatusColor } from "../interfaces/MenuStatusColor.tsx";
+import { RocketActionPayload } from "../reducer/RocketReducer.tsx";
 
 interface MenuProps {
   reducerState: MenuActionPayload
   reducerDispatcher: Function
+  rocketReducerState: RocketActionPayload
+  rocketReducerDispatcher: Function
   isOpen: boolean
   onToggle: Function
 }
@@ -22,7 +25,9 @@ const Menu: FunctionComponent<MenuProps> = ({
   reducerState,
   reducerDispatcher,
   isOpen,
-  onToggle
+  onToggle,
+  rocketReducerState,
+  rocketReducerDispatcher
 }) => {
 
   const [statusText, setStatusText] = useState<string>(reducerState.statusText)
@@ -118,6 +123,8 @@ const Menu: FunctionComponent<MenuProps> = ({
           handleFormInputClick={handleFormInputClick}
           reducerState={reducerState}
           reducerDispatcher={reducerDispatcher}
+          rocketReducerState={rocketReducerState}
+          rocketReducerDispatcher={rocketReducerDispatcher}
         />
         <StatusContainer
           handleMouseOverStatusBadge={handleMouseOverStatusBadge}

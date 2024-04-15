@@ -92,14 +92,22 @@ main {
     /* animation: shiftShuttle 2s ease-in-out forwards; */
 }
 
+.shiftShuttleAnimation {
+    animation: shiftShuttle 2s ease-in-out forwards;
+}
+
 .spaceFlight {
-    animation: atmosphereChange 2.5s ease-in-out forwards;
+    /* animation: atmosphereChange 2.5s ease-in-out forwards; */
     animation-delay: 5s;
 }
 
 .space {
     opacity: 0;
     filter: blur(0.5px);
+    /* animation: spaceReveal 5s forwards 5s; */
+}
+
+.spaceAnimation {
     animation: spaceReveal 5s forwards 5s;
 }
 
@@ -162,12 +170,12 @@ main {
 
 .planetContainer {
     filter: blur(25px);
-    animation: planetBackgroundReveal 5s ease-in-out var(--planet-reveal-delay) forwards;
+    /* animation: planetBackgroundReveal 5s ease-in-out var(--planet-reveal-delay) forwards; */
 }
 
 .planet g {
     fill: white;
-    animation: planetReveal 5s ease-in-out var(--planet-reveal-delay) forwards;
+    /* animation: planetReveal 5s ease-in-out var(--planet-reveal-delay) forwards; */
 }
 
 .planet {
@@ -179,7 +187,7 @@ main {
     transform: rotate(-30deg);
     opacity: 0.5;
     filter: blur(1px);
-    animation: planetReveal 5s ease-in-out var(--planet-reveal-delay) forwards;
+    /* animation: planetReveal 5s ease-in-out var(--planet-reveal-delay) forwards; */
 }
 
 .planetWrapper {
