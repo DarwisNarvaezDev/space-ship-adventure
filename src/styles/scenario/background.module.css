@@ -89,26 +89,20 @@ main {
     opacity: 1;
     position:absolute;
     top: 0%;
-    /* animation: shiftShuttle 2s ease-in-out forwards; */
 }
 
 .shiftShuttleAnimation {
     animation: shiftShuttle 2s ease-in-out forwards;
 }
 
-.spaceFlight {
-    /* animation: atmosphereChange 2.5s ease-in-out forwards; */
-    animation-delay: 5s;
-}
-
-.space {
-    opacity: 0;
-    filter: blur(0.5px);
-    /* animation: spaceReveal 5s forwards 5s; */
+.shiftAtmosphere {
+    animation: 3s atmosphereChange 3s ease-in-out forwards
 }
 
 .spaceAnimation {
-    animation: spaceReveal 5s forwards 5s;
+    opacity: 0;
+    filter: blur(0.5px);
+    animation: 5s spaceReveal 5s forwards;
 }
 
 .distantBrilliantStar {
@@ -170,24 +164,24 @@ main {
 
 .planetContainer {
     filter: blur(25px);
-    /* animation: planetBackgroundReveal 5s ease-in-out var(--planet-reveal-delay) forwards; */
+    animation: planetBackgroundReveal 5s ease-in-out var(--planet-reveal-delay) forwards;
 }
 
 .planet g {
     fill: white;
-    /* animation: planetReveal 5s ease-in-out var(--planet-reveal-delay) forwards; */
+    animation: planetReveal 5s ease-in-out var(--planet-reveal-delay) forwards;
 }
 
 .planet {
     z-index: 9999;
-    width: 150px;
+    width: 450px;
     position: absolute;
-    top: -50%;
-    left: 20%;
+    top: -5%;
+    left: 1%;
     transform: rotate(-30deg);
     opacity: 0.5;
     filter: blur(1px);
-    /* animation: planetReveal 5s ease-in-out var(--planet-reveal-delay) forwards; */
+    animation: planetReveal 5s ease-in-out var(--planet-reveal-delay) forwards;
 }
 
 .planetWrapper {
@@ -210,7 +204,7 @@ main {
         top: -100%;
     }
     100% {
-        top: 25%;
+        top: -5%;
     }
 }
 

@@ -37,8 +37,6 @@
     z-index: 999999;
     animation-fill-mode: forwards;
 
-    /* animation: doTakeOff 4s ease-in-out, 1s rocketFlying var(--animation-trip-delay) linear infinite, planetApprox 1s ease-in var(--animation-arrive-delay); */
-
     width: 100px;
     height: var(--rocket-X-landed-position);
     top: var(--rocket-Y-landed-position);
@@ -46,11 +44,11 @@
 }
 
 .animateRocket {
-    animation: doTakeOff 4s ease-in-out, 1s rocketFlying var(--animation-trip-delay) linear infinite, planetApprox 1s ease-in var(--animation-arrive-delay);
+    animation: doTakeOff 4s ease-in-out, 1s rocketFlying var(--animation-trip-delay) linear infinite, planetApprox 1s ease-in var(--animation-arrive-delay) forwards;
 }
 
 .landingRocketWrapper {
-    /* animation: doLanding 8s ease-in-out 8s forwards; */
+    animation: doLanding 8s ease-in-out 8s forwards;
 }
 
 .rocketSection {
@@ -66,16 +64,13 @@
     z-index: 99999;
 }
 
-.flamesSection {
-    animation: hideFlames 0.1s linear 15s forwards;
-}
-
 @keyframes doLanding {
     0% {
         top: -20%;
     }
     100% {
         top: 17%;
+        transform: rotate(10deg);
     }
 }
 

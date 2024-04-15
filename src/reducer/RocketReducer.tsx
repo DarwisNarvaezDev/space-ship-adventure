@@ -1,4 +1,5 @@
 import RocketStyle from '../styles/elements/rocket.module.css';
+import BackgroundStyle from '../styles/scenario/background.module.css';
 
 export enum RocketActionKind {
     LAUNCH_TO_PLANET
@@ -6,7 +7,10 @@ export enum RocketActionKind {
 
 export interface RocketActionPayload {
     landingAndApproxClass: string
-    isRocketSmoke: boolean
+    shiftShuttleClass: string
+    spaceAnimationClass: string
+    isRocketSmoke: boolean,
+    isRocketLaunched: boolean
 }
 
 interface RocketAction {
@@ -21,7 +25,10 @@ export function rocketReducer( state: RocketActionPayload, action: RocketAction 
             return {
                 ...state,
                 landingAndApproxClass: RocketStyle.animateRocket,
-                isRocketSmoke: true
+                shiftShuttleClass: BackgroundStyle.shiftShuttleAnimation,
+                spaceAnimationClass: BackgroundStyle.spaceAnimation,
+                isRocketSmoke: true,
+                isRocketLaunched: true,
             }
     }
 }

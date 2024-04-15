@@ -5,10 +5,26 @@ import BackgroundStyles from '../styles/scenario/background.module.css'
 import MenuStyles from '../styles/menu/menu.module.css'
 import ChalkArrow from '../assets/chalk-arrow.png'
 import Clouds from "./Clouds.tsx";
-import React from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import Ground from "./Ground.tsx";
+import { RocketActionPayload } from "../reducer/RocketReducer.tsx";
 
-export default function SpaceShuttle(): React.ReactElement {
+interface SpaceShuttleProps {
+  rocketReducerState: RocketActionPayload
+  rocketReducerDispatcher: Function
+}
+
+export const SpaceShuttle: FunctionComponent<SpaceShuttleProps> = ({
+  rocketReducerState,
+  rocketReducerDispatcher
+}) => {
+
+  const [ spaceShuttleAnimationClass, setSpaceShuttleAnimationClass ] = useState<string>('');
+
+  useEffect(()=>{
+    setSpaceShuttleAnimationClass(rocketReducerState.shiftShuttleClass);
+  }, [rocketReducerState])
+
   return (
     <Flex
       id='spaceShuttle'
@@ -19,7 +35,7 @@ export default function SpaceShuttle(): React.ReactElement {
       w="100%"
       zIndex={99}
       flexDirection="column"
-      className={BackgroundStyles.spaceShuttle}
+      className={`${BackgroundStyles.spaceShuttle} ${spaceShuttleAnimationClass}`}
       color={"white"}
     >
       <Flex
@@ -39,7 +55,7 @@ export default function SpaceShuttle(): React.ReactElement {
           justify={"left"}
           align={"center"}
         >
-          <Heading size={"lg"} opacity={"0.3"}>Space Ship Adventure!</Heading>
+          <Heading size={"xl"} opacity={"0.3"}>Space Ship Adventure!</Heading>
         </Flex>
         <Flex
           id="heroBody"
@@ -87,8 +103,8 @@ export default function SpaceShuttle(): React.ReactElement {
           id="clickHintText"
           position={"absolute"}
           bottom={"28%"}
-          right={"13%"} 
-          className={MenuStyles.menu}
+          right={"12%"} 
+          className={MenuStyles.clickHint}
           opacity={"0.3"}
          >
           <Text>Click here to start!</Text>

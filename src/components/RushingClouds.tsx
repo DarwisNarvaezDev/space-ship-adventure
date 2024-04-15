@@ -11,7 +11,9 @@ function RainingClouds() {
             position={"absolute"}
             w={"100%"}
             height={"100%"}
+            zIndex={99}
             {...CenteredProps}
+            className={BackgroundStyles.shiftAtmosphere}
         >
             <Cloud
                 className={BackgroundStyles.bigDashingCloud}

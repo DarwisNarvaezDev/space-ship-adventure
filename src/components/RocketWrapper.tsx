@@ -17,8 +17,10 @@ const RocketWrapper: FunctionComponent<RocketWrapperProps> = ({
 }) => {
 
     const [ rocketAnimationClass, setRocketAnimationClass ] = useState<string>('');
+    const [ isRocketSmoke, setIsRocketSmoke ] = useState<boolean>(false);
 
     useEffect(()=>{
+        setIsRocketSmoke(rocketReducerState.isRocketSmoke)
         setRocketAnimationClass(rocketReducerState.landingAndApproxClass)
     }, [rocketReducerState])
 
@@ -54,13 +56,13 @@ const RocketWrapper: FunctionComponent<RocketWrapperProps> = ({
                         className={RocketStyle.flamesSection}
                         height={"40%"}
                         width={"100%"}
-                        zIndex={9999999}
-                        style={!rocketReducerState.isRocketSmoke ? {} : {
+                        zIndex={99999999999}
+                        style={isRocketSmoke ? {
                             backgroundImage: `url(${Flames})`,
                             backgroundSize: "105%",
                             backgroundRepeat: "no-repeat",
                             transform: "rotate(180deg)", 
-                        }}
+                        } : {}}
                     >
                     </Flex>
             </Flex>

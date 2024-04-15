@@ -1,8 +1,8 @@
-import React, { useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 
 import { Flex, useDisclosure } from '@chakra-ui/react';
 import { CenteredProps, SpaceInheritedFromParent } from './styles/chakra/Props.tsx';
-import SpaceShuttle from './components/SpaceShuttle.tsx';
+import { SpaceShuttle } from './components/SpaceShuttle.tsx';
 import Space from './components/Space.tsx';
 import RushingClouds from './components/RushingClouds.tsx';
 import RocketWrapper from './components/RocketWrapper.tsx';
@@ -21,10 +21,14 @@ const socketUrl: any = process.env.REACT_APP_SOCKET_URL;
 function App(): React.ReactElement {
 
   // Modal control
-  const [ openModal, setOpenModal ] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
   // Menu control
   const { isOpen, onToggle } = useDisclosure()
-  
+  // Dashing clouds control
+  const [showCloudDashing, setShowCloudsDashing] = useState<boolean>(false);
+  // Whole menu control
+  const [showWholeMenu, setShowWholeMenu] = useState<boolean>(true);
+
   const [reducerState, reducerDispatcher] = useReducer(menuReducer, {
     isInputsDisabled: false,
     isLaunchButtonsDisabled: true,
@@ -32,9 +36,10 @@ function App(): React.ReactElement {
     statusText: Messages.menu.waitingForCommand
   });
 
-  const [ rocketReducerState, rocketReducerDispatcher ] = useReducer(rocketReducer, {
+  const [rocketReducerState, rocketReducerDispatcher] = useReducer(rocketReducer, {
     landingAndApproxClass: '',
-    isRocketSmoke: false
+    isRocketSmoke: false,
+    shiftShuttleClass: ''
   })
 
   const { socket, isConnected } = useSocket({ endpoint: socketUrl, appToken: socketAppToken });
@@ -44,6 +49,13 @@ function App(): React.ReactElement {
     reducerDispatcher({ type: MenuActionKind.SET_MENU_DATA, payload: externalCommand });
     setOpenModal(!openModal)
   })
+
+  useEffect(() => {
+    if (rocketReducerState.shiftShuttleClass.length > 1) {
+      setShowCloudsDashing(true);
+      setShowWholeMenu(false);
+    }
+  }, [rocketReducerState])
 
   return (
     <>
@@ -80,23 +92,30 @@ function App(): React.ReactElement {
               rocketReducerState={rocketReducerState}
               rocketReducerDispatcher={rocketReducerDispatcher}
             />
-            <Space />
-            <RushingClouds />
+            {showCloudDashing && (
+              <>
+                <RushingClouds />
+                <Space />
+              </>
+            )}
             <RocketWrapper
               rocketReducerState={rocketReducerState}
               rocketReducerDispatcher={rocketReducerDispatcher}
             />
-            <SpaceShuttle />
-            {/* MENU */}
-            <Menu
-              reducerState={reducerState}
-              reducerDispatcher={reducerDispatcher}
-              isOpen={isOpen}
-              onToggle={onToggle}
+            <SpaceShuttle
               rocketReducerState={rocketReducerState}
               rocketReducerDispatcher={rocketReducerDispatcher}
             />
-            {/* MENU */}
+            {showWholeMenu && (
+              <Menu
+                reducerState={reducerState}
+                reducerDispatcher={reducerDispatcher}
+                isOpen={isOpen}
+                onToggle={onToggle}
+                rocketReducerState={rocketReducerState}
+                rocketReducerDispatcher={rocketReducerDispatcher}
+              />
+            )}
           </Flex>
         </Flex>
       </Flex>
