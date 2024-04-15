@@ -4,7 +4,7 @@ import spaceShuttleBackground from "../assets/space-shuttle-bg.png"
 import React from "react";
 
 export default function Ground() {
-    
+
     return (
         <Flex
             id='ground'
@@ -23,16 +23,16 @@ export default function Ground() {
                 width={"20%"}
                 height={"100%"}
             >
-            <Flex
-                id='rocketShadow'
-                width="100%"
-                height="80%"
-                bg="black"
-                borderRadius="80%"
-                filter="blur(20px)"
-                zIndex="0"
-            >
-            </Flex>
+                <Flex
+                    id='rocketShadow'
+                    width="100%"
+                    height="80%"
+                    bg="black"
+                    borderRadius="80%"
+                    filter="blur(20px)"
+                    zIndex="0"
+                >
+                </Flex>
             </Flex>
         </Flex>
     )

@@ -4,6 +4,7 @@ import { CenteredProps } from "../styles/chakra/Props.tsx";
 import { Messages } from "../messages/Messages.tsx";
 import { MenuActionPayload } from "../reducer/MenuReducer.tsx";
 import { RocketActionKind, RocketActionPayload } from "../reducer/RocketReducer.tsx";
+import MenuStyles from '../styles/menu/menu.module.css';
 
 interface IncomingModalProps {
     isOpen: boolean
@@ -41,6 +42,7 @@ export const IncomingCommandModal: FunctionComponent<IncomingModalProps> = ({
                     position={"absolute"}
                     style={{ backgroundColor: "rgba(0,0,0, 0.5)" }}
                     {...CenteredProps}
+                    className={MenuStyles.menu}
                 >
                     <Flex
                         id='modalContainer'

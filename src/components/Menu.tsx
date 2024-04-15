@@ -100,13 +100,13 @@ const Menu: FunctionComponent<MenuProps> = ({
       right={"10%"}
       bottom={"10%"}
       justifyContent={"right"}
+      className={MenuStyles.menu}
     >
       { isOpen && (<HintBox
         hintBoxContent={menuHintBoxContent}
       />)}
       <Flex
         id='menu'
-        className={MenuStyles.menu}
         as={"section"}
         width={"55%"}
         height={"100%"}
@@ -132,7 +132,7 @@ const Menu: FunctionComponent<MenuProps> = ({
           handleMouseLeaveStatusBadge={handleMouseLeaveStatusBadge}
           statusText={reducerState.statusText}
           statusColor={reducerState.statusColor}
-                    reducerState={reducerState}
+          reducerState={reducerState}
           reducerDispatcher={reducerDispatcher}
         />
       </Flex>
