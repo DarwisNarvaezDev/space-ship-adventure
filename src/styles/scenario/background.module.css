@@ -180,7 +180,6 @@ main {
     left: 1%;
     transform: rotate(-30deg);
     opacity: 0.5;
-    filter: blur(1px);
     animation: planetReveal 5s ease-in-out var(--planet-reveal-delay) forwards;
 }
 

@@ -2,7 +2,8 @@ import RocketStyle from '../styles/elements/rocket.module.css';
 import BackgroundStyle from '../styles/scenario/background.module.css';
 
 export enum RocketActionKind {
-    LAUNCH_TO_PLANET
+    LAUNCH_TO_PLANET,
+    SHUT_DOWN
 }
 
 export interface RocketActionPayload {
@@ -29,6 +30,11 @@ export function rocketReducer( state: RocketActionPayload, action: RocketAction 
                 spaceAnimationClass: BackgroundStyle.spaceAnimation,
                 isRocketSmoke: true,
                 isRocketLaunched: true,
+            }
+        case RocketActionKind.SHUT_DOWN:
+            return {
+                ...state,
+                isRocketSmoke: false
             }
     }
 }

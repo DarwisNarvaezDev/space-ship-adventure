@@ -95,7 +95,10 @@ function App(): React.ReactElement {
             {showCloudDashing && (
               <>
                 <RushingClouds />
-                <Space />
+                <Space
+                  rocketReducerState={rocketReducerState}
+                  rocketReducerDispatcher={rocketReducerDispatcher}
+                />
               </>
             )}
             <RocketWrapper
