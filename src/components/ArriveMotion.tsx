@@ -1,13 +1,15 @@
 import { Flex } from "@chakra-ui/react";
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent, ReactElement, useContext, useEffect, useState } from "react";
 import BackgroundStyles from '../styles/scenario/background.module.css';
 import RocketStyle from '../styles/elements/rocket.module.css';
-import { ReactComponent as PlanetA } from '../assets/planet-a.svg';
-import { ReactComponent as PlanetB } from '../assets/planet-b.svg';
-import { ReactComponent as PlanetC } from '../assets/planet-c.svg';
+import { ReactComponent as Mars } from '../assets/planet-a.svg';
+import { ReactComponent as Saturn } from '../assets/planet-b.svg';
+import { ReactComponent as Venus } from '../assets/planet-c.svg';
 import Flames from '../assets/flames.gif';
 import { RocketActionPayload } from "../reducer/RocketReducer";
 import RocketShip from '../assets/rocketship.svg';
+import { RocketContext, RocketContextData } from "../App.tsx";
+import { PlanetNames } from "../util/PlanetNames.tsx";
 
 
 interface ArriveMotionProps {
@@ -19,6 +21,18 @@ const ArriveMotion: FunctionComponent<ArriveMotionProps> = ({
     rocketReducerState,
     rocketReducerDispatcher
 }) => {
+
+    const { spaceCoordinates, coordinatesCallback } = useContext(RocketContext);
+
+    const [planet, setPlanet] = useState('');
+    const getRenderingPlanet = (): void => {
+        setPlanet(spaceCoordinates.planetName);
+    }
+
+    useEffect(() => {
+        getRenderingPlanet()
+    }, [spaceCoordinates])
+
     return (
         <>
             <Flex
@@ -73,9 +87,21 @@ const ArriveMotion: FunctionComponent<ArriveMotionProps> = ({
                 >
                 </Flex>
             </Flex>
-            <PlanetB
-                className={BackgroundStyles.planet}
-            ></PlanetB>
+            {
+                PlanetNames.MARS == planet && (<Mars
+                    className={BackgroundStyles.planet}    
+                />)
+            }
+            {
+                PlanetNames.VENUS == planet && (<Venus
+                    className={BackgroundStyles.planet}      
+                />)
+            }
+            {
+                PlanetNames.SATURN == planet && (<Saturn
+                    className={BackgroundStyles.planet}      
+                />)
+            }
         </>
     );
 }

@@ -1,7 +1,8 @@
 import { Button, Flex, Heading, ListItem, Text, UnorderedList } from "@chakra-ui/react";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useContext } from "react";
 import { CenteredProps } from "../styles/chakra/Props.tsx";
 import { RocketActionPayload } from "../reducer/RocketReducer";
+import { RocketContext } from "../App.tsx";
 
 interface FlightFinishedProps {
     rocketReducerState: RocketActionPayload
@@ -12,6 +13,9 @@ const FlightFinished: FunctionComponent<FlightFinishedProps> = ({
     rocketReducerState,
     rocketReducerDispatcher
 }) => {
+
+    const { spaceCoordinates, coordinatesCallback } = useContext(RocketContext);
+
     return (
         <Flex
             zIndex={99999}
@@ -32,7 +36,7 @@ const FlightFinished: FunctionComponent<FlightFinishedProps> = ({
                 h={"20%"}
                 {...CenteredProps}
             >
-                <Heading size={"md"}>You Arrived to Saturn!</Heading>
+                <Heading size={"md"}>You Arrived to {spaceCoordinates.planetName}!</Heading>
             </Flex>
             <Flex
                 id="flightSummary"
@@ -46,13 +50,13 @@ const FlightFinished: FunctionComponent<FlightFinishedProps> = ({
                     spacing={4}
                 >
                     <ListItem>
-                        <Text>Traveled Distance: <strong>00</strong>m of Km.</Text>
+                        <Text>Traveled Distance: <strong>{spaceCoordinates.distance}</strong>m of Km.</Text>
                     </ListItem>
                     <ListItem>
-                        <Text>Total Speed: <strong>00</strong>m Km/s.</Text>
+                        <Text>Total Speed: <strong>{spaceCoordinates.rocketSpeed}</strong>m Km/s.</Text>
                     </ListItem>
                     <ListItem>
-                        <Text>Flight Time: <strong>00</strong> days.</Text>
+                        <Text>Flight Time: <strong>{spaceCoordinates.flightTime}</strong> days.</Text>
                     </ListItem>
                 </UnorderedList>
             </Flex>

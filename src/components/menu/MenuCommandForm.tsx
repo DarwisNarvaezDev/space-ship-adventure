@@ -1,5 +1,5 @@
 import { Box, Button, CloseButton, Flex, FormControl, FormLabel, Heading, Input } from "@chakra-ui/react";
-import React, { FunctionComponent, useEffect, useReducer, useRef, useState } from "react";
+import React, { FunctionComponent, useCallback, useContext, useEffect, useReducer, useRef, useState } from "react";
 import { Messages } from "../../messages/Messages.tsx";
 import { CenteredProps } from "../../styles/chakra/Props.tsx";
 import { Field, Form, Formik } from "formik";
@@ -7,6 +7,8 @@ import MenuStyles from '../../styles/menu/menu.module.css'
 import { MenuActionKind, MenuActionPayload } from "../../reducer/MenuReducer.tsx";
 import { MenuFormFieldNames } from "../../interfaces/MenuForm.tsx";
 import { RocketActionKind, RocketActionPayload } from "../../reducer/RocketReducer.tsx";
+import { RocketContext } from "../../App.tsx";
+import { PlanetsCoordinates } from "../../util/PlanetsCoordinates.tsx";
 
 interface MenuCommandFormProps {
   isOpen: boolean
@@ -29,6 +31,8 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
   rocketReducerState,
   rocketReducerDispatcher
 }) => {
+
+  const { spaceCoordinates, coordinatesCallback } = useContext(RocketContext);
 
   const [distance, setDistance] = useState<number | null | undefined>(null)
   const distanceRef = useRef<string>()
@@ -138,7 +142,39 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
                 return errors;
               }}
               onSubmit={(values, { setSubmitting }) => {
-                // Do something
+                //defaults
+                let rocketSpeedCtx: number = 0
+                let distanceCtx: number = 0
+                let flightTimeCtx: number = 0
+                let planetNameCtx: string = ''
+                // form values
+                const {
+                  rocketSpeed,
+                  distance,
+                  flightTime
+                } = values;
+                // Planets logic
+                const planetCoordinates = PlanetsCoordinates
+                planetCoordinates.forEach(
+                  planet => {
+                    if( 
+                      planet.distance == distance &&
+                      planet.flightTime == flightTime &&
+                      planet.rocketSpeed == rocketSpeed
+                    ){
+                      rocketSpeedCtx = planet.rocketSpeed;
+                      distanceCtx = planet.distance
+                      flightTimeCtx = planet.flightTime
+                      planetNameCtx = planet.planetName
+                    }
+                  }
+                )
+                coordinatesCallback({
+                  distance: distanceCtx,
+                  flightTime: flightTimeCtx,
+                  rocketSpeed: rocketSpeedCtx,
+                  planetName: planetNameCtx
+                })
               }}
             >
               {({
