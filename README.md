@@ -1,4 +1,4 @@
-<h1 align="center">Space Ship Adventure App</h1>
+<h1 align="center">🚀🔥Space Ship Adventure App🔥🚀</h1>
 
 <p align="center">
   <img src="https://github.com/DarwisNarvaezDev/space-ship-adventure/assets/81827734/2c2c1890-7357-4d87-8d8f-afe6155b9619" alt="animatedRocket" />
