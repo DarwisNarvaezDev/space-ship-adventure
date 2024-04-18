@@ -2,17 +2,17 @@ import React, { createContext, useCallback, useEffect, useReducer, useState } fr
 
 import { Flex, useDisclosure } from '@chakra-ui/react';
 import { CenteredProps, SpaceInheritedFromParent } from './styles/chakra/Props.tsx';
-import { SpaceShuttle } from './components/SpaceShuttle.tsx';
-import Space from './components/Space.tsx';
-import RushingClouds from './components/RushingClouds.tsx';
-import RocketWrapper from './components/RocketWrapper.tsx';
-import Menu from './components/Menu.tsx';
+import { SpaceShuttle } from './components/scenario/SpaceShuttle.tsx';
+import Space from './components/scenario/Space.tsx';
+import RushingClouds from './components/scenario/RushingClouds.tsx';
+import RocketWrapper from './components/scenario/RocketWrapper.tsx';
+import Menu from './components/menu/Menu.tsx';
 import { MenuActionKind, MenuActionPayload, menuReducer } from './reducer/MenuReducer.tsx';
 import { MenuStatusColor } from './interfaces/MenuStatusColor.tsx';
 import { Messages } from './messages/Messages.tsx';
 import { ExternalCommand, useSocket } from './hooks/useSocket.tsx';
 import { Events } from './util/Events.tsx';
-import { IncomingCommandModal } from './components/IncomingCommandModal.tsx';
+import { IncomingCommandModal } from './components/scenario/IncomingCommandModal.tsx';
 import { rocketReducer } from './reducer/RocketReducer.tsx';
 import { SpaceCoordinates } from './interfaces/SpaceCoordinates.tsx';
 

@@ -1,6 +1,6 @@
 import { Flex, Tag, useDisclosure } from "@chakra-ui/react";
-import { CenteredProps } from "../styles/chakra/Props.tsx";
-import spaceShuttleBackground from "../assets/space-shuttle-bg.png"
+import { CenteredProps } from "../../styles/chakra/Props.tsx";
+import spaceShuttleBackground from "../../assets/space-shuttle-bg.png"
 import React from "react";
 
 export default function Ground() {

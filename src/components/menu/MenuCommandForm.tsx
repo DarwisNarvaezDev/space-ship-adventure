@@ -169,6 +169,12 @@ const MenuCommandForm: FunctionComponent<MenuCommandFormProps> = ({
                     }
                   }
                 )
+                if( planetNameCtx == '' ){
+                  rocketReducerDispatcher({
+                    type: RocketActionKind.STRANDED,
+                    payload: {}
+                  })
+                }
                 coordinatesCallback({
                   distance: distanceCtx,
                   flightTime: flightTimeCtx,

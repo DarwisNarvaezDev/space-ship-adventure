@@ -1,8 +1,8 @@
 import { Flex } from "@chakra-ui/react";
 import React from "react";
-import { ReactComponent as Cloud } from '../assets/cloud.svg'
-import BackgroundStyles from '../styles/scenario/background.module.css'
-import { CenteredProps } from "../styles/chakra/Props.tsx";
+import { ReactComponent as Cloud } from '../../assets/cloud.svg'
+import BackgroundStyles from '../../styles/scenario/background.module.css'
+import { CenteredProps } from "../../styles/chakra/Props.tsx";
 
 function RainingClouds() {
     return ( 

@@ -1,13 +1,13 @@
 import { Button, Code, Flex, Heading, Link, ListItem, Menu, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, UnorderedList, useDisclosure } from "@chakra-ui/react";
-import { CenteredProps } from "../styles/chakra/Props.tsx";
-import { ReactComponent as PlanePassingBy } from '../assets/plane.svg'
-import BackgroundStyles from '../styles/scenario/background.module.css'
-import MenuStyles from '../styles/menu/menu.module.css'
-import ChalkArrow from '../assets/chalk-arrow.png'
+import { CenteredProps } from "../../styles/chakra/Props.tsx";
+import { ReactComponent as PlanePassingBy } from '../../assets/plane.svg'
+import BackgroundStyles from '../../styles/scenario/background.module.css'
+import MenuStyles from '../../styles/menu/menu.module.css'
+import ChalkArrow from '../../assets/chalk-arrow.png'
 import Clouds from "./Clouds.tsx";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import Ground from "./Ground.tsx";
-import { RocketActionPayload } from "../reducer/RocketReducer.tsx";
+import { RocketActionPayload } from "../../reducer/RocketReducer.tsx";
 
 interface SpaceShuttleProps {
   rocketReducerState: RocketActionPayload
@@ -23,7 +23,7 @@ export const SpaceShuttle: FunctionComponent<SpaceShuttleProps> = ({
 
   useEffect(()=>{
     setSpaceShuttleAnimationClass(rocketReducerState.shiftShuttleClass);
-  }, [rocketReducerState])
+  }, [rocketReducerState.shiftShuttleClass])
 
   return (
     <Flex

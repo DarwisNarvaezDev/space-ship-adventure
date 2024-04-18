@@ -3,15 +3,17 @@ import BackgroundStyle from '../styles/scenario/background.module.css';
 
 export enum RocketActionKind {
     LAUNCH_TO_PLANET,
-    SHUT_DOWN
+    SHUT_DOWN,
+    STRANDED
 }
 
 export interface RocketActionPayload {
     landingAndApproxClass: string
     shiftShuttleClass: string
-    spaceAnimationClass: string
+    spaceAnimationClass: string,
     isRocketSmoke: boolean,
-    isRocketLaunched: boolean
+    isRocketLaunched: boolean,
+    isRocketStranded: boolean
 }
 
 interface RocketAction {
@@ -35,6 +37,11 @@ export function rocketReducer( state: RocketActionPayload, action: RocketAction 
             return {
                 ...state,
                 isRocketSmoke: false
+            }
+        case RocketActionKind.STRANDED:
+            return {
+                ...state,
+                isRocketStranded: true
             }
     }
 }

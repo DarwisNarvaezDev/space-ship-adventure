@@ -79,8 +79,6 @@ export function menuReducer(state: MenuActionPayload, action: MenuAction) {
                 ...state
             }
         case MenuActionKind.SET_MENU_DATA:
-            console.log(payload);
-            
             return {
                 ...state,
                 distance: state.distance == payload.distance ? state.distance : payload.distance,

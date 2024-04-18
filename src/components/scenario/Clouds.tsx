@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { ReactComponent as CloudSvg } from '../assets/cloud.svg'
-import { Cloud, CloudTypes } from '../interfaces/Cloud.tsx';
-import BackgroundProps from '../styles/scenario/background.module.css'
+import { ReactComponent as CloudSvg } from '../../assets/cloud.svg'
+import { Cloud, CloudTypes } from '../../interfaces/Cloud.tsx';
+import BackgroundProps from '../../styles/scenario/background.module.css'
 
 function Clouds(){
     const [cloudList, setCloudList] = useState<Cloud[]>([

@@ -1,10 +1,10 @@
 import { Button, CloseButton, Flex, Heading, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import React, { FunctionComponent } from "react";
-import { CenteredProps } from "../styles/chakra/Props.tsx";
-import { Messages } from "../messages/Messages.tsx";
-import { MenuActionPayload } from "../reducer/MenuReducer.tsx";
-import { RocketActionKind, RocketActionPayload } from "../reducer/RocketReducer.tsx";
-import MenuStyles from '../styles/menu/menu.module.css';
+import { CenteredProps } from "../../styles/chakra/Props.tsx";
+import { Messages } from "../../messages/Messages.tsx";
+import { MenuActionPayload } from "../../reducer/MenuReducer.tsx";
+import { RocketActionKind, RocketActionPayload } from "../../reducer/RocketReducer.tsx";
+import MenuStyles from '../../styles/menu/menu.module.css';
 
 interface IncomingModalProps {
     isOpen: boolean

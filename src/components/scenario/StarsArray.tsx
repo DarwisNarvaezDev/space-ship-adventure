@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import BackgroundStyles from '../styles/scenario/background.module.css'
-import { RandomStar, StarCoordinates } from '../interfaces/Star.tsx'
+import BackgroundStyles from '../../styles/scenario/background.module.css'
+import { RandomStar, StarCoordinates } from '../../interfaces/Star.tsx'
 import StarWrapper from "./StarWrapper.tsx";
 
 function StarsArray(): React.ReactElement {
@@ -34,7 +34,7 @@ function StarsArray(): React.ReactElement {
 
     return ( 
         <Flex
-            id="startsArrayContainer"
+            id="starsArrayContainer"
             as="div"
             w={"100%"}
             h={"100vh"}

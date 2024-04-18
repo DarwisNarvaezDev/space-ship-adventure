@@ -1,16 +1,15 @@
 import { Badge, Box, CloseButton, Flex, FormControl, FormHelperText, FormLabel, HStack, Heading, Radio, RadioGroup, ScaleFade, Stack, Tag, Text, useDisclosure } from "@chakra-ui/react";
-import MenuStyles from '../styles/menu/menu.module.css'
+import MenuStyles from '../../styles/menu/menu.module.css'
 import React, { FunctionComponent, useReducer, useState } from "react";
-import { CenteredProps } from "../styles/chakra/Props.tsx";
-import { Messages } from "../messages/Messages.tsx";
-import MenuCommandForm from "./menu/MenuCommandForm.tsx";
-import StatusContainer from "./menu/StatusContainer.tsx";
-import HintBox from "./menu/HintBox.tsx";
-import { MenuFormFieldNames } from "../interfaces/MenuForm.tsx";
-import { MenuHintBoxContent } from "../interfaces/MenuHintBoxContent.tsx";
-import { MenuActionKind, MenuActionPayload, menuReducer } from "../reducer/MenuReducer.tsx";
-import { MenuStatusColor } from "../interfaces/MenuStatusColor.tsx";
-import { RocketActionPayload } from "../reducer/RocketReducer.tsx";
+import { CenteredProps } from "../../styles/chakra/Props.tsx";
+import { Messages } from "../../messages/Messages.tsx";
+import MenuCommandForm from "./MenuCommandForm.tsx";
+import StatusContainer from "./StatusContainer.tsx";
+import HintBox from "./HintBox.tsx";
+import { MenuFormFieldNames } from "../../interfaces/MenuForm.tsx";
+import { MenuHintBoxContent } from "../../interfaces/MenuHintBoxContent.tsx";
+import { MenuActionKind, MenuActionPayload, menuReducer } from "../../reducer/MenuReducer.tsx";
+import { RocketActionPayload } from "../../reducer/RocketReducer.tsx";
 
 interface MenuProps {
   reducerState: MenuActionPayload

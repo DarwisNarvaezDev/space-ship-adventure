@@ -1,10 +1,10 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import RocketShip from '../assets/rocketship.svg'
-import Flames from '../assets/flames.gif'
-import RocketStyle from '../styles/elements/rocket.module.css'
+import RocketShip from '../../assets/rocketship.svg'
+import Flames from '../../assets/flames.gif'
+import RocketStyle from '../../styles/elements/rocket.module.css'
 import { Flex } from "@chakra-ui/react";
-import { CenteredProps } from "../styles/chakra/Props.tsx";
-import { RocketActionKind, RocketActionPayload } from "../reducer/RocketReducer.tsx";
+import { CenteredProps } from "../../styles/chakra/Props.tsx";
+import { RocketActionKind, RocketActionPayload } from "../../reducer/RocketReducer.tsx";
 
 interface RocketWrapperProps {
     rocketReducerState: RocketActionPayload
@@ -22,7 +22,7 @@ const RocketWrapper: FunctionComponent<RocketWrapperProps> = ({
     useEffect(()=>{
         setIsRocketSmoke(rocketReducerState.isRocketSmoke)
         setRocketAnimationClass(rocketReducerState.landingAndApproxClass)
-    }, [rocketReducerState])
+    }, [rocketReducerState.isRocketSmoke, rocketReducerState.landingAndApproxClass])
 
     return (
         <Flex
@@ -56,7 +56,7 @@ const RocketWrapper: FunctionComponent<RocketWrapperProps> = ({
                         className={RocketStyle.flamesSection}
                         height={"40%"}
                         width={"100%"}
-                        zIndex={99999999999}
+                        zIndex={"9999999"}
                         style={isRocketSmoke ? {
                             backgroundImage: `url(${Flames})`,
                             backgroundSize: "105%",

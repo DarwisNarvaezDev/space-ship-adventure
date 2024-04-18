@@ -164,6 +164,7 @@ main {
 
 .planetContainer {
     filter: blur(25px);
+    z-index: 99999;
     animation: planetBackgroundReveal 5s ease-in-out var(--planet-reveal-delay) forwards;
 }
 
@@ -187,6 +188,20 @@ main {
     -webkit-box-shadow: 65px 64px 202px 73px rgba(0, 0, 0, 1);
     -moz-box-shadow: 65px 64px 202px 73px rgba(0, 0, 0, 1);
     box-shadow: 65px 64px 202px 73px rgba(0, 0, 0, 1);
+}
+
+.finishingReveal {
+    visibility: hidden;
+    animation: finishingReveal 5s linear 10s forwards;
+}
+
+@keyframes finishingReveal {
+    0% {
+        visibility: hidden;
+    }
+    100% {
+        visibility: visible;
+    }
 }
 
 @keyframes planetBackgroundReveal {

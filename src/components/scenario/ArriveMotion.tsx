@@ -1,15 +1,15 @@
 import { Flex } from "@chakra-ui/react";
 import React, { FunctionComponent, ReactElement, useContext, useEffect, useState } from "react";
-import BackgroundStyles from '../styles/scenario/background.module.css';
-import RocketStyle from '../styles/elements/rocket.module.css';
-import { ReactComponent as Mars } from '../assets/planet-a.svg';
-import { ReactComponent as Saturn } from '../assets/planet-b.svg';
-import { ReactComponent as Venus } from '../assets/planet-c.svg';
-import Flames from '../assets/flames.gif';
-import { RocketActionPayload } from "../reducer/RocketReducer";
-import RocketShip from '../assets/rocketship.svg';
-import { RocketContext, RocketContextData } from "../App.tsx";
-import { PlanetNames } from "../util/PlanetNames.tsx";
+import BackgroundStyles from '../../styles/scenario/background.module.css';
+import RocketStyle from '../../styles/elements/rocket.module.css';
+import { ReactComponent as Mars } from '../../assets/planet-a.svg';
+import { ReactComponent as Saturn } from '../../assets/planet-b.svg';
+import { ReactComponent as Venus } from '../../assets/planet-c.svg';
+import Flames from '../../assets/flames.gif';
+import { RocketActionPayload } from "../../reducer/RocketReducer.tsx";
+import RocketShip from '../../assets/rocketship.svg';
+import { RocketContext, RocketContextData } from "../../App.tsx";
+import { PlanetNames } from "../../util/PlanetNames.tsx";
 
 
 interface ArriveMotionProps {

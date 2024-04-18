@@ -1,8 +1,9 @@
 import { Button, Flex, Heading, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import React, { FunctionComponent, useContext } from "react";
-import { CenteredProps } from "../styles/chakra/Props.tsx";
-import { RocketActionPayload } from "../reducer/RocketReducer";
-import { RocketContext } from "../App.tsx";
+import { CenteredProps } from "../../styles/chakra/Props.tsx";
+import { RocketActionPayload } from "../../reducer/RocketReducer.tsx";
+import { RocketContext } from "../../App.tsx";
+import StartAgainButton from "./StartAgainButton.tsx";
 
 interface FlightFinishedProps {
     rocketReducerState: RocketActionPayload
@@ -18,7 +19,7 @@ const FlightFinished: FunctionComponent<FlightFinishedProps> = ({
 
     return (
         <Flex
-            zIndex={99999}
+            zIndex={99}
             id="flightFinished"
             pos={"absolute"}
             top={"15%"}
@@ -66,15 +67,7 @@ const FlightFinished: FunctionComponent<FlightFinishedProps> = ({
                 h={"20%"}
                 {...CenteredProps}
             >
-                <Button
-                    bg={"none"}
-                    border={"0.5px solid limegreen"}
-                    color={"limegreen"}
-                    _hover={{ backgroundColor: "limegreen", color: "black" }}
-                    onClick={()=>{
-                        window.location.reload();
-                    }}
-                >Start Again</Button>
+                <StartAgainButton />
             </Flex>
         </Flex>
     );
