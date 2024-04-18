@@ -13,8 +13,9 @@ import { Messages } from './messages/Messages.tsx';
 import { ExternalCommand, useSocket } from './hooks/useSocket.tsx';
 import { Events } from './util/Events.tsx';
 import { IncomingCommandModal } from './components/scenario/IncomingCommandModal.tsx';
-import { rocketReducer } from './reducer/RocketReducer.tsx';
+import { RocketActionKind, rocketReducer } from './reducer/RocketReducer.tsx';
 import { SpaceCoordinates } from './interfaces/SpaceCoordinates.tsx';
+import ResolvePlanetName from './util/ResolvePlanetName.ts';
 
 const socketAppToken: any = process.env.REACT_APP_SOCKET_APP_TOKEN;
 const socketUrl: any = process.env.REACT_APP_SOCKET_URL;
@@ -52,26 +53,49 @@ function App(): React.ReactElement {
 
   const { socket, isConnected } = useSocket({ endpoint: socketUrl, appToken: socketAppToken });
 
-  socket.on(Events.COMMAND_RECEIVED, (externalCommand: ExternalCommand) => {
-    reducerDispatcher({ type: MenuActionKind.RECEIVING_DATA, payload: {} });
-    reducerDispatcher({ type: MenuActionKind.SET_MENU_DATA, payload: externalCommand });
-    setOpenModal(!openModal)
-  })
-
   const [spaceCoordinatesCtx, setSpaceCoordinatesCtx] = useState<SpaceCoordinates | null>(null);
   const coordinatesCallBack = useCallback((newCoordinates: SpaceCoordinates) => {
     setSpaceCoordinatesCtx(newCoordinates);
   }, [])
+
+  const handleIncommingEvent = (externalCommand: ExternalCommand): void => {
+
+    const planetFound = ResolvePlanetName({
+      distance: externalCommand.distance,
+      rocketSpeed: externalCommand.rocketSpeed,
+      flightTime: externalCommand.flightTime
+    });
+
+    reducerDispatcher({ type: MenuActionKind.RECEIVING_DATA, payload: {} });
+    reducerDispatcher({ type: MenuActionKind.SET_MENU_DATA, payload: externalCommand });
+    setOpenModal(!openModal)
+
+    console.log(!planetFound);
+    
+    if( !planetFound ){
+      rocketReducerDispatcher({
+        type: RocketActionKind.STRANDED
+      })
+    }
+
+    coordinatesCallBack({
+      distance: externalCommand.distance,
+      rocketSpeed: externalCommand.rocketSpeed,
+      flightTime: externalCommand.flightTime,
+      planetName: planetFound
+    })
+
+  }
+
+  socket.on(Events.COMMAND_RECEIVED, (externalCommand: ExternalCommand) => {
+    handleIncommingEvent(externalCommand);
+  })
 
   useEffect(() => {
     if (rocketReducerState.shiftShuttleClass.length > 1) {
       setShowCloudsDashing(true);
       setShowWholeMenu(false);
     }
-
-    // console.log(spaceCoordinatesCtx);
-    
-
   }, [rocketReducerState, spaceCoordinatesCtx])
 
   return (

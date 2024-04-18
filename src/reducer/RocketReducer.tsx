@@ -10,9 +10,9 @@ export enum RocketActionKind {
 export interface RocketActionPayload {
     landingAndApproxClass: string
     shiftShuttleClass: string
-    spaceAnimationClass: string,
-    isRocketSmoke: boolean,
-    isRocketLaunched: boolean,
+    spaceAnimationClass: string
+    isRocketSmoke: boolean
+    isRocketLaunched: boolean
     isRocketStranded: boolean
 }
 
