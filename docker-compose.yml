@@ -1,0 +1,21 @@
+services:
+  ssa-api:
+    build:
+      context: ./api/
+      dockerfile: Dockerfile
+    environment:
+      - SERVER_PORT=8080
+      - CLIENT_URL=http://localhost:3000
+      - AUTH_TOKEN=space-ship-adventure
+    ports:
+      - 8080:8080
+  ssa-app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      - REACT_APP_SOCKET_APP_TOKEN=space-ship-adventure
+      - REACT_APP_SOCKET_URL=http://localhost:8080
+    ports:
+      - 3000:3000
+        
