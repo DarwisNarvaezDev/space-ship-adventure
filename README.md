@@ -26,7 +26,9 @@ This project has a api submodule which is the dedicated API for the space ship a
   "flightTime": <numeric>
 }``
 
-then the response will be a 200:
+<p  align="center">
+  then the response will be a 200:  
+</p>
 
 ``
 {
@@ -34,7 +36,9 @@ then the response will be a 200:
 }
 ``
 
-After that, a notification can be seen in Gui:
+<p  align="center">
+  After that, a notification can be seen in Gui:
+</p>
 
 <p align="center">
 <img src="https://github.com/DarwisNarvaezDev/space-ship-adventure/assets/81827734/767c1c8b-31cb-4ba0-a3ee-877ecfb06bd9"></img>
